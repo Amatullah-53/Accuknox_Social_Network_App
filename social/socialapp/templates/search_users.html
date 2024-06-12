@@ -1,0 +1,228 @@
+{% load bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% bootstrap_css %}
+    {% load static %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="{%static 'css/dashboard.css'%}" rel='stylesheet' type='text/css' />
+</head>
+<body>
+  <nav class="navbar bg-body-tertiary" style="margin-top: 0%;">
+    <div class="container-fluid" style="background-color:  rgb(248, 237, 237);color: aliceblue;">
+        <a class="navbar-brand" href="#">
+            <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.sjultra.com%2Fpartners%2Faccuknox%2F&psig=AOvVaw3E0yKYzzcXyHmoIohx9sUV&ust=1717652744435000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCICN3J7hw4YDFQAAAAAdAAAAABAE" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+            Accuknox
+        </a>
+    </div>
+</nav>
+
+<!-- Container for the vertical navbars and main content -->
+<div class="d-flex flex-wrap">
+    <!-- Left vertical navbar -->
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar">
+        <div class="position-sticky pt-3">
+            <!-- Profile section -->
+            <div class="text-center mb-3">
+                <img src="{% static 'path/to/profile-image.jpg' %}" alt="Profile Image" class="profile-image">
+                <div class="profile-name">
+                    <p><strong>Username:</strong> {{ username }}</p>
+                    <p><strong>Email:</strong> {{ email }}</p>
+                </div>
+            </div>
+            <ul class="nav flex-column">
+                <!-- Navbar links with icons -->
+                <li class="nav-item">
+                    <a class="nav-link" href="\add_friends">
+                        <i class="bi bi-people"></i> Make New Friends
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="\my-friends">
+                        <i class="bi bi-person-check"></i> My Friends
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="\pending_friend_requests">
+                        <i class="bi bi-hourglass-split"></i> Pending Requests
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="\notifications">
+                        <i class="bi bi-bell"></i> Notifications
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="\logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main content area -->
+    <main class="col-md-6 ms-sm-auto col-lg-8 px-md-4">
+        <main class="container mt-4">
+            <h2>Add Friends</h2>
+            <form action="search_users" method="get">
+                <div class="search-bar mb-3">
+                    <input type="text" id="search-input" class="form-control" placeholder="Search for users..." name="search">
+                    <button type="submit" class="btn btn-primary mt-2">Search</button>
+                </div>
+            </form>
+
+
+            <div class="user-list">
+                {% for user in users %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ user.username }}</h5>
+                            <p class="card-text">{{ user.email }}</p>
+                            {% if user.friend_request_status == 'pending' %}
+                                <button class="btn btn-primary" disabled>Pending</button>
+                            {% else %}
+                                <button data-user-id="{{ user.id }}" class="btn btn-primary send-request-btn">Send Request</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+                
+
+            <!-- Pagination -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                    {% endif %}
+    
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+    
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><span class="page-link">Next</span></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </main>
+    </main>
+
+    <!-- Right vertical navbar -->
+    <nav id="sidebarMenuRight" class="col-md-3 col-lg-2 d-md-block sidebar">
+        <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+                <!-- Navbar links with icons -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-chat-dots"></i> My Chats
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-bar-chart"></i> Insights
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-person-circle"></i> Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-camera"></i> Change Profile Photo
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-key"></i> Change Password
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const buttons = document.querySelectorAll('.send-request-btn');
+    
+        buttons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const userId = this.getAttribute('data-user-id');
+    
+                fetch(`/send_friend_request/${userId}/`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Disable the button and change text to "Pending"
+                        this.disabled = true;
+                        this.textContent = 'Pending';
+                        this.classList.add('pending-btn');
+                    } else {
+                        console.error('Failed to send friend request');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    });
+
+//     // Search bar code
+//     document.addEventListener('DOMContentLoaded', function () {
+//     const searchBtn = document.getElementById('search-btn');
+//     const searchInput = document.getElementById('search-input');
+
+//     searchBtn.addEventListener('click', function () {
+//         const searchTerm = searchInput.value.trim();
+
+//         // Send AJAX request to backend
+//         fetch(`/search_users/?search=${searchTerm}`, {
+//             method: 'GET',
+//             headers: {
+//                 'X-Requested-With': 'XMLHttpRequest'
+//             }
+//         })
+//         .then(response => {
+//             if (response.ok) {
+//                 // Parse JSON response
+//                 return response.json();
+//             } else {
+//                 console.error('Failed to search users');
+//             }
+//         })
+//         .then(data => {
+//             // Process search results
+//             console.log(data); // Do something with the search results
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//         });
+//     });
+// });
+// // search bar code end
+    </script>
+    {% bootstrap_javascript %}
+</body>
+
+</html>

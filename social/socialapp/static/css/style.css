@@ -1,0 +1,15 @@
+body,html{
+    width: 100%;
+    height: 100%;
+    background-color: whitesmoke;
+
+}
+
+.box{
+    width:100%;
+    height:auto;
+    background-color: rgb(255, 255, 255);
+    border-radius: 2%;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3); /* Horizontal offset, vertical offset, blur radius, color */
+}
+

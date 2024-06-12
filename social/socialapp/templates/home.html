@@ -1,0 +1,120 @@
+{% load bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% bootstrap_css %}
+    {%load static %}
+    <link href="{%static 'css/style.css'%}" rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+            {% if success %}
+            <div class="alert alert-success" role="alert">
+                {{ success }}
+            </div>
+            {% endif %}
+            <div class="col-lg-6" style="color: red; margin-top: 10%; align-items: center; justify-content: center;">
+                <h1>AccuKnox</h1><br>
+                <h3>Social Networking Application</h3>
+
+            </div>
+            <div class="col-lg-4 " style="color:rgb(221, 46, 7); margin-top: 10%;">
+                <div class="box">
+ 
+                    <h1>
+                        <center>Login</center>
+                    </h1>
+                    <form method="POST" action="login">
+                        {% csrf_token %}
+                        
+                        <div class="container mt-4">
+                            <div class="row mb-3">
+                                <div class="col-md-10 offset-md-1">
+                                    <label for="id_username" class="form-label">Email Address:</label>
+                                    <input type="text" name="username" id="id_username" class="form-control" placeholder="Enter Your Email Address" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-10 offset-md-1">
+                                    <label for="id_password" class="form-label">Password:</label>
+                                    <input type="password" name="password" id="id_password" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-10 offset-md-1">
+                                    <button class="btn btn-success w-100" type="submit">Login</button>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-10 offset-md-1 text-center">
+                                    <a href="#" class="text-decoration-none">Forgotten Password?</a>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-10 offset-md-1 text-center">
+                                    <button class="btn btn-danger w-50" type="button" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupModalLabel">Create Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="signup">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">Username:</label>
+                            <input type="text" name="username" id="id_username" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Email:</label>
+                            <input type="email" name="email" id="id_email" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_password1" class="form-label">Password:</label>
+                            <input type="password" name="password1" id="id_password1" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_password2" class="form-label">Confirm Password:</label>
+                            <input type="password" name="password2" id="id_password2" class="form-control" required>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Create Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% bootstrap_javascript %}
+</body>
+
+</html>

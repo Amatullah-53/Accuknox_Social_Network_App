@@ -1,0 +1,152 @@
+{% load bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% bootstrap_css %}
+    {% load static %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="{%static 'css/dashboard.css'%}" rel='stylesheet' type='text/css' />
+</head>
+<body>
+  <nav class="navbar bg-body-tertiary" style="margin-top: 0%;">
+    <div class="container-fluid" style="background-color:  rgb(248, 237, 237);color: aliceblue;">
+        <a class="navbar-brand" href="#">
+            <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.sjultra.com%2Fpartners%2Faccuknox%2F&psig=AOvVaw3E0yKYzzcXyHmoIohx9sUV&ust=1717652744435000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCICN3J7hw4YDFQAAAAAdAAAAABAE" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+            Accuknox
+        </a>
+    </div>
+</nav>
+
+<!-- Container for the vertical navbars and main content -->
+<div class="d-flex flex-wrap">
+    <!-- Left vertical navbar -->
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar">
+        <div class="position-sticky pt-3">
+            <!-- Profile section -->
+            <div class="text-center mb-3">
+                <img src="{% static 'path/to/profile-image.jpg' %}" alt="Profile Image" class="profile-image">
+                <div class="profile-name">
+                    <p><strong>Username:</strong> {{ username }}</p>
+                    <p><strong>Email:</strong> {{ email }}</p>
+                </div>
+            </div>
+            <ul class="nav flex-column">
+                <!-- Navbar links with icons -->
+                <li class="nav-item">
+                    <a class="nav-link " href="\add_friends">
+                        <i class="bi bi-people"></i> Make New Friends
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="\my-friends">
+                        <i class="bi bi-person-check"></i> My Friends
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="\pending_friend_requests">
+                        <i class="bi bi-hourglass-split"></i> Pending Requests
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="\notifications">
+                        <i class="bi bi-bell"></i> Notifications
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="\logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main content area -->
+    <main class="col-md-6 ms-sm-auto col-lg-8 px-md-4">
+        <!-- Social media page -->
+        <div class="container">
+            <h2>Welcome to Your Dashboard, {{ username }}</h2>
+            <!-- Post area -->
+            <div class="card my-3">
+                <div class="card-header">
+                    Create a Post
+                </div>
+                <div class="card-body">
+                    <!-- Post form -->
+                    <form>
+                        <div class="mb-3">
+                            <label for="postContent" class="form-label">Post Content</label>
+                            <textarea class="form-control" id="postContent" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="postImage" class="form-label">Post Image</label>
+                            <input class="form-control" type="file" id="postImage">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Publish</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Display posts -->
+            <div class="card">
+                <div class="card-header">
+                    Latest Posts
+                </div>
+                <div class="card-body">
+                    <!-- Sample post -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            John Doe
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                            <img src="{% static 'path/to/sample-image.jpg' %}" class="img-fluid" alt="Sample Image">
+                        </div>
+                    </div>
+                    <!-- Add more posts here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Right vertical navbar -->
+    <nav id="sidebarMenuRight" class="col-md-3 col-lg-2 d-md-block sidebar">
+        <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+                <!-- Navbar links with icons -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-chat-dots"></i> My Chats
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-bar-chart"></i> Insights
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-person-circle"></i> Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-camera"></i> Change Profile Photo
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-key"></i> Change Password
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+    {% bootstrap_javascript %}
+</body>
+</html>
